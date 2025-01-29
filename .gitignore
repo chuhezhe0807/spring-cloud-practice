@@ -1,0 +1,30 @@
+# Eclipse
+.project
+.classpath
+.settings/
+ 
+#maven
+/services/service-order/target
+dependency-reduced-pom.xml
+pom.xml.versionsBackup
+.factorypath
+
+out/
+
+# Gradel
+.gradle/
+build/
+
+# IDEA
+.idea/
+*.ipr
+*.iml
+*.iws
+*.class
+
+# temp ignore
+*.log
+*.cache
+*.diff
+*.patch
+*.tmp

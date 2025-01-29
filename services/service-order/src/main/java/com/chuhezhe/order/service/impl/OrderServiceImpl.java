@@ -37,7 +37,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public Order createOrder(Long productId, Long userId) {
-        Product product = getProductFromRemoteWithLoadBalancer(productId);
+        Product product = getProductFromRemoteWithLoadBalancerAnnotation(productId);
         Order order = new Order();
         order.setId(1L);
         // 总金额
@@ -73,6 +73,18 @@ public class OrderServiceImpl implements OrderService {
 
         // 远程URL
         String url = "http://" + choose.getHost() + ":" + choose.getPort() + "/product/" + productId;
+
+        log.info("远程请求: {}", url);
+        // 2、给远程发送请求
+        Product product = restTemplate.getForObject(url, Product.class);
+
+        return product;
+    }
+
+    // 基于 @LoadBalancer 注解的负载均衡策略
+    private Product getProductFromRemoteWithLoadBalancerAnnotation(Long productId) {
+        // @LoadBalancer注解会负载均衡的将 service-product 替换为一个主机名+端口号
+        String url = "http://service-product/product/" + productId;
 
         log.info("远程请求: {}", url);
         // 2、给远程发送请求
