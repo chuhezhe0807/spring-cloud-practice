@@ -1,0 +1,22 @@
+{
+  "groups": [
+    {
+      "name": "order",
+      "type": "com.chuhezhe.order.properties.OrderProperties",
+      "sourceType": "com.chuhezhe.order.properties.OrderProperties"
+    }
+  ],
+  "properties": [
+    {
+      "name": "order.auto-confirm",
+      "type": "java.lang.String",
+      "sourceType": "com.chuhezhe.order.properties.OrderProperties"
+    },
+    {
+      "name": "order.timeout",
+      "type": "java.lang.String",
+      "sourceType": "com.chuhezhe.order.properties.OrderProperties"
+    }
+  ],
+  "hints": []
+}

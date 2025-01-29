@@ -1,6 +1,7 @@
 package com.chuhezhe.order.controller;
 
 import com.chuhezhe.order.bean.Order;
+import com.chuhezhe.order.properties.OrderProperties;
 import com.chuhezhe.order.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -18,23 +19,19 @@ import org.springframework.web.bind.annotation.RestController;
  * @Create 2025/1/29 12:34
  * @Version 1.0
  */
-@RefreshScope // 当配置修改时，自动刷新 orderTimeout orderAutoConfirm 两个值
 @RestController
 public class OrderController {
 
     @Autowired
     private OrderService orderService;
 
-    @Value("${order.timeout}")
-    String orderTimeout;
-
-    @Value("${order.auto-confirm}")
-    String orderAutoConfirm;
+    @Autowired
+    private OrderProperties orderProperties;
 
     // 获取发布的配置
     @GetMapping("/config")
     public String config() {
-        return "order.timeout=" + orderTimeout + "; order.auto-confirm=" + orderAutoConfirm;
+        return "order.timeout=" + orderProperties.getTimeout() + "; order.auto-confirm=" + orderProperties.getAutoConfirm();
     }
 
     // 创建订单
