@@ -1,5 +1,6 @@
 package com.chuhezhe.order.config;
 
+import feign.Logger;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -21,5 +22,11 @@ public class OrderServiceConfig {
     @Bean
     public RestTemplate getRestTemplate() {
         return new RestTemplate();
+    }
+
+    // 设置 feign 日志的level
+    @Bean
+    Logger.Level getLoggerLevel() {
+        return Logger.Level.FULL;
     }
 }
