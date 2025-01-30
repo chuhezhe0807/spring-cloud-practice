@@ -13,3 +13,7 @@ spring:
             read-timeout: 5000      # 读取超时时间，远程调用的请求处理的时间
 #            request-interceptors:  # 仅对当前设置的客户端有效
 #              - com.chuhezhe.order.interceptor.XTokenRequestInterceptor
+
+feign:
+  sentinel:
+    enabled: true # 开启后，远程调用失败后，就会自动走 @FeignClient 设置的 fallback

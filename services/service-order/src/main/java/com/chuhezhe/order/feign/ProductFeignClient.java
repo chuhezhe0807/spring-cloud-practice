@@ -1,5 +1,6 @@
 package com.chuhezhe.order.feign;
 
+import com.chuhezhe.order.feign.fallback.ProductFeignClientFallback;
 import com.chuhezhe.product.bean.Product;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestHeader;
  * @Create 2025/1/30 14:53
  * @Version 1.0
  */
-@FeignClient(value = "service-product") // 指定远程调用哪个微服务
+@FeignClient(value = "service-product", fallback = ProductFeignClientFallback.class) // 指定远程调用哪个微服务，指定失败后的兜底回调
 public interface ProductFeignClient {
 
     // 方法返回值 Product 指的是将远程调用请求到的数据封装成Product
