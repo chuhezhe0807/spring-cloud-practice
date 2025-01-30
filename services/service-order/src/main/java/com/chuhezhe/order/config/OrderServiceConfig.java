@@ -1,6 +1,7 @@
 package com.chuhezhe.order.config;
 
 import feign.Logger;
+import feign.Retryer;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -28,5 +29,11 @@ public class OrderServiceConfig {
     @Bean
     Logger.Level getLoggerLevel() {
         return Logger.Level.FULL;
+    }
+
+    // 设置重试机制
+    @Bean
+    Retryer getRetryer() {
+        return new Retryer.Default(); // 采用默认重试机制 最大重试次数5次（第一次包含在内），每间隔100ms重试，每次需要乘1.5的系数，最大时间为1s
     }
 }

@@ -26,7 +26,7 @@ public class ProductServiceImpl implements ProductService {
         product.setNum(2);
 
         try {
-            TimeUnit.SECONDS.sleep(10);
+            TimeUnit.SECONDS.sleep(100);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
