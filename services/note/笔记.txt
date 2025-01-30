@@ -7,3 +7,15 @@
 
 配置中心
     利用Group区分多个微服务
+
+
+Open feign
+    · 声明式REST客户端
+    · 注解驱动
+        指定远程地址：@FeignClient
+        指定请求方式：@GetMapping、@PostMapping等
+        指定携带数据：@RequestHeader、@RequestParam
+        指定结果返回：响应模型
+
+    客户端负载均衡与服务端负载均衡的区别？
+        客户端选择一个服务器发送请求，服务端是请求来了以后在选择一个服务器去处理

@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import com.chuhezhe.order.bean.Order;
+import com.chuhezhe.order.feign.ProductFeignClient;
 import com.chuhezhe.order.service.OrderService;
 import com.chuhezhe.product.bean.Product;
 import lombok.extern.slf4j.Slf4j;
@@ -35,9 +36,15 @@ public class OrderServiceImpl implements OrderService {
     @Autowired
     LoadBalancerClient loadBalancerClient;
 
+    @Autowired
+    ProductFeignClient productFeignClient;
+
     @Override
     public Order createOrder(Long productId, Long userId) {
-        Product product = getProductFromRemoteWithLoadBalancerAnnotation(productId);
+//        Product product = getProductFromRemoteWithLoadBalancerAnnotation(productId);
+        // 使用 feignClient 实现远程调用
+        Product product = productFeignClient.getProductById(productId);
+
         Order order = new Order();
         order.setId(1L);
         // 总金额
