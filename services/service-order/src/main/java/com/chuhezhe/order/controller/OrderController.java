@@ -31,7 +31,9 @@ public class OrderController {
     // 获取发布的配置
     @GetMapping("/config")
     public String config() {
-        return "order.timeout=" + orderProperties.getTimeout() + "; order.auto-confirm=" + orderProperties.getAutoConfirm();
+        return "order.timeout=" + orderProperties.getTimeout() +
+                "; order.auto-confirm=" + orderProperties.getAutoConfirm() +
+                "; order.db-url=" + orderProperties.getDbUrl();
     }
 
     // 创建订单

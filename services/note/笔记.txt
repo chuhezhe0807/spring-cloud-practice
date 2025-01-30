@@ -4,3 +4,6 @@
 
 如果Nacos中的数据集和application.properties有相同的配置项，哪个生效？
     先导入优先，外部优先， Nacos中的数据集会生效
+
+配置中心
+    利用Group区分多个微服务

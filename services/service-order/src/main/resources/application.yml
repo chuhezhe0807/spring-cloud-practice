@@ -1,0 +1,35 @@
+server:
+  port: 8000
+spring:
+  profiles:
+    active: dev
+
+  application:
+    name: server-order
+
+  cloud:
+    nacos:
+      server-addr: 127.0.0.1:8848
+      config:
+        import-check:
+          enabled: false # 禁用引入检查
+        namespace: ${spring.profiles.active:public} # 冒号后面跟的是默认值
+
+# "---" 代表多个文档，相当于另一个yml文件，通过此方式可以实现多个配置在某种条件下是否激活
+# 通过 spring.profiles.active 设置的值来激活
+---
+spring:
+  config:
+    import:
+      - nacos:common.properties?group=order
+      - nacos:database.properties?group=order
+    activate:
+      on-profile: dev
+---
+spring:
+  config:
+    import:
+      - nacos:common.properties?group=order
+      - nacos:database.properties?group=order
+    activate:
+      on-profile: prod
