@@ -3,6 +3,8 @@ server:
 spring:
   profiles:
     active: dev
+    # application-feign.yml 的配置文件会被加载进来
+    include: feign
 
   application:
     name: server-order

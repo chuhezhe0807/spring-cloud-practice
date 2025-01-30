@@ -1,0 +1,13 @@
+spring:
+  cloud:
+    openfeign:
+      client:
+        config:
+          default:                  # feign客户端的默认配置
+            logger-level: full
+            connect-timeout: 1000
+            read-timeout: 1000
+          server-product:           # feign 客户端的名称 @FeignClient 注解中的value或contextId，没有指定contextId时就是value
+            logger-level: full      # 日志级别
+            connect-timeout: 3000   # 连接超时时间
+            read-timeout: 5000      # 读取超时时间，远程调用的请求处理的时间

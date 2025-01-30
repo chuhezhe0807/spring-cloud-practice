@@ -1,5 +1,6 @@
 package com.chuhezhe.product.service.impl;
 import java.math.BigDecimal;
+import java.util.concurrent.TimeUnit;
 
 import com.chuhezhe.product.bean.Product;
 import com.chuhezhe.product.service.ProductService;
@@ -23,6 +24,12 @@ public class ProductServiceImpl implements ProductService {
         product.setPrice(new BigDecimal("99"));
         product.setProductName("苹果-" + id);
         product.setNum(2);
+
+        try {
+            TimeUnit.SECONDS.sleep(10);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
 
         return product;
     }
