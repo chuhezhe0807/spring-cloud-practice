@@ -2,6 +2,7 @@ package com.chuhezhe.product.controller;
 
 import com.chuhezhe.product.bean.Product;
 import com.chuhezhe.product.service.ProductService;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,8 +24,9 @@ public class ProductController {
 
     // 查询商品
     @GetMapping("/product/{id}")
-    public Product getProduct(@PathVariable("id") Long productId) {
-        System.out.println("hello"); // 控制台查看通过注解的方式实现的请求负载均衡，是否成功
+    public Product getProduct(@PathVariable("id") Long productId, HttpServletRequest request) {
+        String header = request.getHeader("X-Token");
+        System.out.println("hello + token = " + header); // 控制台查看通过注解的方式实现的请求负载均衡，是否成功
         Product product = productService.getProductById(productId);
 
         return product;

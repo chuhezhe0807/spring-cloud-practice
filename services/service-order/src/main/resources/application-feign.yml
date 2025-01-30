@@ -11,3 +11,5 @@ spring:
             logger-level: full      # 日志级别
             connect-timeout: 3000   # 连接超时时间
             read-timeout: 5000      # 读取超时时间，远程调用的请求处理的时间
+#            request-interceptors:  # 仅对当前设置的客户端有效
+#              - com.chuhezhe.order.interceptor.XTokenRequestInterceptor
