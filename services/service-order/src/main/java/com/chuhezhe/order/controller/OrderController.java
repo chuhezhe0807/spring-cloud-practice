@@ -3,6 +3,7 @@ package com.chuhezhe.order.controller;
 import com.chuhezhe.order.bean.Order;
 import com.chuhezhe.order.properties.OrderProperties;
 import com.chuhezhe.order.service.OrderService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @Create 2025/1/29 12:34
  * @Version 1.0
  */
+@Slf4j
 @RestController
 public class OrderController {
 
@@ -62,11 +64,13 @@ public class OrderController {
     // 应用场景为数据库在进行大量的写操作时，对读操作作出限制
     @GetMapping("/readDB")
     public String readDB() {
+        log.info("readDB...");
         return "readDB success....";
     }
 
     @GetMapping("/writeDB")
     public String writeDB() {
+        log.info("writeDB...");
         return "writeDB success....";
     }
 }

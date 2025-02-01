@@ -27,6 +27,7 @@ public class MyBlockExceptionHandler implements BlockExceptionHandler {
     @Override
     public void handle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse,
                        String resourceName, BlockException e) throws Exception {
+        httpServletResponse.setStatus(429); // to many requests
         httpServletResponse.setContentType("application/json;charset=utf-8");
         R error = R.error(500, resourceName + " 被Sentinel限制了，原因：" + e.getClass());
         String json = objectMapper.writeValueAsString(error);
