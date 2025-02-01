@@ -56,4 +56,17 @@ public class OrderController {
 
         return order;
     }
+
+    // 关联流控模式，对/readDB设置关联流控模式，关联/writeDB，如果/writeDB访问量极大时，这时在访问/readDB则会被限制
+    // 关联流控模式单独访问设置流控模式的资源不会被限制，只有访问关联资源访问量大时，再访问设置模式的资源才会被限制
+    // 应用场景为数据库在进行大量的写操作时，对读操作作出限制
+    @GetMapping("/readDB")
+    public String readDB() {
+        return "readDB success....";
+    }
+
+    @GetMapping("/writeDB")
+    public String writeDB() {
+        return "writeDB success....";
+    }
 }
