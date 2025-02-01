@@ -28,6 +28,12 @@
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
 
+        <!--    sentinel 流量保护    -->
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-sentinel</artifactId>
+        </dependency>
+
         <!--    配置中心    -->
         <dependency>
             <groupId>com.alibaba.cloud</groupId>

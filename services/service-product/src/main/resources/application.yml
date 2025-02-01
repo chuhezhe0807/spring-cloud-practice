@@ -1,0 +1,17 @@
+server:
+  port: 9000
+
+spring:
+  application:
+    name: service-product
+
+  cloud:
+    nacos:
+      server-addr: 127.0.0.1:8848
+      config:
+        import-check:
+          enabled: false # 关闭导入检查，没有nacos配置也可以启动
+    sentinel:
+      transport:
+        dashboard: localhost:8080
+      eager: true # sentinel 的微服务列表是懒加载的，只有发送请求后才会进行展示，eager为true，可以使其提前加载
