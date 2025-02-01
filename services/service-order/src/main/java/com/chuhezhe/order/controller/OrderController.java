@@ -44,4 +44,16 @@ public class OrderController {
 
         return order;
     }
+
+    // 秒杀订单
+    // 测试流控规则中的高级设置中的流控模式-链路，普通创建订单不限制，秒杀创建订单限制
+    // 流控模式-链路指的是从哪一条路来到这个簇点链路节点的，只有指定的路进来的才会被限制
+    @GetMapping("/seckill")
+    public Order seckill(@RequestParam("userId") Long userId,
+                             @RequestParam("productId") Long productId) {
+        Order order = orderService.createOrder(productId, userId);
+        order.setId(Long.MAX_VALUE);
+
+        return order;
+    }
 }
