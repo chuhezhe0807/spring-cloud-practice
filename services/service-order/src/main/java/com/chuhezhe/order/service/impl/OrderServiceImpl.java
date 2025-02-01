@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import com.alibaba.csp.sentinel.annotation.SentinelResource;
+import com.alibaba.csp.sentinel.slots.block.BlockException;
 import com.chuhezhe.order.bean.Order;
 import com.chuhezhe.order.feign.ProductFeignClient;
 import com.chuhezhe.order.service.OrderService;
@@ -40,7 +41,7 @@ public class OrderServiceImpl implements OrderService {
     @Autowired
     ProductFeignClient productFeignClient;
 
-    @SentinelResource(value = "createOrder")
+    @SentinelResource(value = "createOrder", blockHandler = "createOrderFallback")
     @Override
     public Order createOrder(Long productId, Long userId) {
 //        Product product = getProductFromRemoteWithLoadBalancerAnnotation(productId);
@@ -55,6 +56,18 @@ public class OrderServiceImpl implements OrderService {
         order.setNickName("张三");
         order.setAddress("chengdu");
         order.setProductList(Arrays.asList(product));
+
+        return order;
+    }
+
+    // 兜底回调，当请求违反了Sentinel定义的规则后，执行blockHandler，没有的话执行fallback 都是在 @SentinelResource 注解中指定
+    private Order createOrderFallback(Long productId, Long userId, BlockException e) {
+        Order order = new Order();
+        order.setId(0L);
+        order.setTotalAmount(new BigDecimal("0"));
+        order.setUserId(userId);
+        order.setNickName("未知用户");
+        order.setAddress("异常信息：" + e.getMessage());
 
         return order;
     }
