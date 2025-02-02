@@ -1,5 +1,7 @@
 package com.chuhezhe.order.controller;
 
+import com.alibaba.csp.sentinel.annotation.SentinelResource;
+import com.alibaba.csp.sentinel.slots.block.BlockException;
 import com.chuhezhe.order.bean.Order;
 import com.chuhezhe.order.properties.OrderProperties;
 import com.chuhezhe.order.service.OrderService;
@@ -50,11 +52,23 @@ public class OrderController {
     // 秒杀订单
     // 测试流控规则中的高级设置中的流控模式-链路，普通创建订单不限制，秒杀创建订单限制
     // 流控模式-链路指的是从哪一条路来到这个簇点链路节点的，只有指定的路进来的才会被限制
+    @SentinelResource(value = "seckill-order", fallback = "seckillFallback")
     @GetMapping("/seckill")
     public Order seckill(@RequestParam("userId") Long userId,
                              @RequestParam("productId") Long productId) {
         Order order = orderService.createOrder(productId, userId);
         order.setId(Long.MAX_VALUE);
+
+        return order;
+    }
+
+    // "/seckill" 资源访问违反定义的规则或异常后执行的兜底回调
+    public Order seckillFallback(Long userId, Long productId, BlockException e) {
+        System.out.println("seckillFallback....");
+        Order order = new Order();
+        order.setId(productId);
+        order.setUserId(productId);
+        order.setAddress("异常信息：" + e.getMessage());
 
         return order;
     }
