@@ -25,3 +25,8 @@ spring:
               args:
                 param: q
                 regexp: haha
+            # - VIP=user,xiaozhang
+            - name: Vip                   # 自定义的路由断言，VIPRoutePredicateFactory
+              args:
+                param: user
+                value: xiaozhang
