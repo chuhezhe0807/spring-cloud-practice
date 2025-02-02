@@ -63,7 +63,10 @@ public class OrderController {
     }
 
     // "/seckill" 资源访问违反定义的规则或异常后执行的兜底回调
-    public Order seckillFallback(Long userId, Long productId, BlockException e) {
+    // @SentinelResource 如果指定的是 fallback="seckillFallback"，将参数改为 Throwable e 在"/seckill" 资源访问违反定义的规则或异常后才会执行
+    // @SentinelResource 如果指定的是 blockHandler="seckillFallback" 则需要将参数指定为 BlockExceprion e
+    // 指定了blockHandler就执行，否则就执行指定了的fallback
+    public Order seckillFallback(Long userId, Long productId, Throwable e) {
         System.out.println("seckillFallback....");
         Order order = new Order();
         order.setId(productId);
