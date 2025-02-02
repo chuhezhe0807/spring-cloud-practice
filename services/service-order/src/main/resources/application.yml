@@ -7,7 +7,7 @@ spring:
     include: feign
 
   application:
-    name: server-order
+    name: service-order
 
   cloud:
     nacos:

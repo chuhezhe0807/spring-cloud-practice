@@ -6,6 +6,7 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
  * ClassName: ProductFeignClient
@@ -23,7 +24,7 @@ public interface ProductFeignClient {
     // MVC注解有两套逻辑
     // 1、写在controller中，是指接受这样的请求，参数就是接受参数
     // 2、写在feignClient上，是指发送这样的请求，参数是将这个参数放到请求中
-    @GetMapping("/product/{id}")
+    @GetMapping("/api/product/{id}")
     Product getProductById(@PathVariable("id") Long id);
     // 如果需要向请求头中写入token，可以这样写
 //    void getProductById(@PathVariable("id") Long id, @RequestHeader("token") String token);

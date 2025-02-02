@@ -1,0 +1,13 @@
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: order-route
+          order: 0        # 路由匹配顺序，数字越小优先级越高
+          uri: lb://service-order   # lb 指 loadBalance 负载均衡。service-order指id为order-route的路由将会把请求转到service-order微服务
+          predicates:               # 注意此处请求路径是以 /api/order/ 开头的相应的service-order、service-controller 和open feign远程调用处都要修改
+            - Path=/api/order/**
+        - id: product-route
+          uri: lb://service-product
+          predicates:
+            - Path=/api/product/**
