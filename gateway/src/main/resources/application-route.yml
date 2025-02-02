@@ -1,13 +1,27 @@
 spring:
   cloud:
     gateway:
-      routes:
+      routes:             # 没有设置order时，路由匹配顺序是从上到下
         - id: order-route
           order: 0        # 路由匹配顺序，数字越小优先级越高
           uri: lb://service-order   # lb 指 loadBalance 负载均衡。service-order指id为order-route的路由将会把请求转到service-order微服务
-          predicates:               # 注意此处请求路径是以 /api/order/ 开头的相应的service-order、service-controller 和open feign远程调用处都要修改
-            - Path=/api/order/**
+          predicates:               # 注意此处请求路径是以 /api/order/ 开头的相应的service-order、service-controller 和open feign远程调用处都要修改，如果是多个规则的话需要同时满足才可以
+            # Path=/api/order/** 的完整写法
+            - name: Path
+              args:
+                patterns: /api/order/**     # Path 满足什么规则
+                matchTrailingSlash: true    # 是否自动匹配路径最后的斜线，默认为true。为true时会同时匹配 /api/order/xx 和 /api/order/xx/
         - id: product-route
           uri: lb://service-product
           predicates:
             - Path=/api/product/**
+        - id: bing-route
+          uri: https://cn.bing.com/
+          predicates:                     # 请求路径是 /search 并且requestParam包含 ?q=haha 才会被路由到 https://cn.bing.com/
+            - name: Path
+              args:
+                patterns: /search
+            - name: Query                 # see QueryRoutePredicateFactory
+              args:
+                param: q
+                regexp: haha
