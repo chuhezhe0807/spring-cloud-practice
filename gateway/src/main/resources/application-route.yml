@@ -15,6 +15,7 @@ spring:
             # 路径重写的过滤器 /api/order/ab/c  -> /ab/c
             # (?<segment>.*) 为正则表达式，意为把 /api/order/ 后面的所有请求路径正则取成一个变量。整个语句的意思就是去掉/api/order
             - RewritePath=/api/order/?(?<segment>.*), /$\{segment}
+            - OnceToken=X-Response-Token, uuid  # 支持uuid或jwt生成的token
 
         - id: product-route
           uri: lb://service-product
