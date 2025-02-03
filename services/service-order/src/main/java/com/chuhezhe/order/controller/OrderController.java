@@ -25,7 +25,6 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @Slf4j
 @RestController
-@RequestMapping("/api/order")
 public class OrderController {
 
     @Autowired

@@ -11,10 +11,18 @@ spring:
               args:
                 patterns: /api/order/**     # Path 满足什么规则
                 matchTrailingSlash: true    # 是否自动匹配路径最后的斜线，默认为true。为true时会同时匹配 /api/order/xx 和 /api/order/xx/
+          filters:
+            # 路径重写的过滤器 /api/order/ab/c  -> /ab/c
+            # (?<segment>.*) 为正则表达式，意为把 /api/order/ 后面的所有请求路径正则取成一个变量。整个语句的意思就是去掉/api/order
+            - RewritePath=/api/order/?(?<segment>.*), /$\{segment}
+            # 添加响应头的过滤器
+            - AddResponseHeader=X-Response-Abc, 123
+
         - id: product-route
           uri: lb://service-product
           predicates:
             - Path=/api/product/**
+
         - id: bing-route
           uri: https://cn.bing.com/
           predicates:                     # 请求路径是 /search 并且requestParam包含 ?q=haha 才会被路由到 https://cn.bing.com/
