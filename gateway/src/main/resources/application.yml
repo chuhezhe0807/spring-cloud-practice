@@ -3,7 +3,7 @@ server:
 
 spring:
   profiles:
-    include: route
+    include: gateway
   application:
     name: gateway
 

@@ -1,6 +1,12 @@
 spring:
   cloud:
     gateway:
+      globalcors:
+        cors-configurations:    # 在网关为所有的微服务做跨域处理，就不用再每一个微服务配置了
+          '[/**]':
+            allowed-origin-patterns: '*'
+            allowed-headers: '*'
+            allowed-methods: '*'
       routes:             # 没有设置order时，路由匹配顺序是从上到下
         - id: order-route
           order: 0        # 路由匹配顺序，数字越小优先级越高
