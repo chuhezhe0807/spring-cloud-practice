@@ -15,13 +15,13 @@ spring:
             # 路径重写的过滤器 /api/order/ab/c  -> /ab/c
             # (?<segment>.*) 为正则表达式，意为把 /api/order/ 后面的所有请求路径正则取成一个变量。整个语句的意思就是去掉/api/order
             - RewritePath=/api/order/?(?<segment>.*), /$\{segment}
-            # 添加响应头的过滤器
-            - AddResponseHeader=X-Response-Abc, 123
 
         - id: product-route
           uri: lb://service-product
           predicates:
             - Path=/api/product/**
+          filters:
+            - RewritePath=/api/product/?(?<segment>.*), /$\{segment}
 
         - id: bing-route
           uri: https://cn.bing.com/
@@ -38,3 +38,8 @@ spring:
               args:
                 param: user
                 value: xiaozhang
+
+      # default-filters 默认过滤器，可以在所有的路由规则上生效。
+      # 添加响应头的过滤器
+      default-filters:
+        - AddResponseHeader=X-Response-Abc, 123

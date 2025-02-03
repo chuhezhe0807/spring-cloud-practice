@@ -24,7 +24,7 @@ public class ProductController {
     private ProductService productService;
 
     // 查询商品
-    @GetMapping("/product/{id}")
+    @GetMapping("/{id}")
     public Product getProduct(@PathVariable("id") Long productId, HttpServletRequest request) {
         String header = request.getHeader("X-Token");
         System.out.println("hello + token = " + header); // 控制台查看通过注解的方式实现的请求负载均衡，是否成功
